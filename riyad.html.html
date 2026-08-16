@@ -1,0 +1,4073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Md Murshalen Hossain Riyad | Portfolio</title>
+
+<meta name="description"
+content="Official portfolio of Md Murshalen Hossain Riyad — education, skills, projects, achievements and professional profile.">
+
+<meta name="author" content="Md Murshalen Hossain Riyad">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#030308;
+    color:#fff;
+    font-family:"Inter",sans-serif;
+    overflow-x:hidden;
+}
+
+::selection{
+    background:#fff;
+    color:#000;
+}
+
+body::-webkit-scrollbar{
+    width:7px;
+}
+
+body::-webkit-scrollbar-track{
+    background:#030308;
+}
+
+body::-webkit-scrollbar-thumb{
+    background:linear-gradient(#7c3cff,#00d9ff);
+    border-radius:20px;
+}
+
+a{
+    color:inherit;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#loader{
+    position:fixed;
+    inset:0;
+    background:#030308;
+    z-index:99999;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    transition:opacity 1s ease;
+}
+
+.loader-name{
+    font-family:"Space Grotesk";
+    font-size:clamp(30px,5vw,55px);
+    font-weight:700;
+    letter-spacing:-3px;
+}
+
+.loader-name span{
+    color:#8d5cff;
+}
+
+.loader-sub{
+    margin-top:10px;
+    color:#777;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+.loader-line{
+    width:200px;
+    height:2px;
+    background:#171721;
+    margin-top:30px;
+    overflow:hidden;
+}
+
+.loader-line span{
+    display:block;
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#7c3cff,#00d9ff);
+    animation:loaderProgress 2.2s ease forwards;
+}
+
+@keyframes loaderProgress{
+    to{
+        width:100%;
+    }
+}
+
+
+/* =========================================================
+   THREE.JS
+========================================================= */
+
+#webgl{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-10;
+}
+
+
+/* =========================================================
+   BACKGROUND EFFECTS
+========================================================= */
+
+.background-glow{
+    position:fixed;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(111,64,255,.13),
+            transparent 65%
+        );
+
+    filter:blur(40px);
+    pointer-events:none;
+    z-index:-5;
+}
+
+.glow-one{
+    top:-250px;
+    left:-250px;
+}
+
+.glow-two{
+    right:-300px;
+    bottom:-250px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,217,255,.10),
+            transparent 65%
+        );
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:.025;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.cursor{
+    position:fixed;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#fff;
+
+    pointer-events:none;
+    z-index:9999;
+
+    transform:translate(-50%,-50%);
+
+    mix-blend-mode:difference;
+}
+
+.cursor-ring{
+    position:fixed;
+    width:38px;
+    height:38px;
+
+    border:1px solid rgba(255,255,255,.45);
+    border-radius:50%;
+
+    pointer-events:none;
+    z-index:9998;
+
+    transform:translate(-50%,-50%);
+    transition:
+        width .2s ease,
+        height .2s ease;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:0;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3cff,
+            #00d9ff
+        );
+
+    z-index:99999;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:88px;
+
+    padding:0 7%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:rgba(3,3,8,.42);
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.05);
+
+    z-index:1000;
+}
+
+.logo{
+    font-family:"Space Grotesk";
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:-1.5px;
+}
+
+.logo span{
+    color:#8d5cff;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:#8c8c98;
+    text-decoration:none;
+    font-size:13px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-button{
+    text-decoration:none;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    padding:11px 20px;
+    border-radius:30px;
+
+    font-size:13px;
+
+    transition:.3s;
+}
+
+.nav-button:hover{
+    background:#fff;
+    color:#000;
+}
+
+.menu{
+    display:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+section{
+    position:relative;
+    padding:
+        140px 8%;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+}
+
+.tag{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    color:#858591;
+
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+
+    margin-bottom:20px;
+}
+
+.tag::before{
+    content:"";
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#8d5cff;
+
+    box-shadow:
+        0 0 15px #8d5cff;
+}
+
+.section-title{
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(45px,6.5vw,90px);
+
+    line-height:.92;
+
+    letter-spacing:-5px;
+
+    margin-bottom:70px;
+}
+
+.section-title span{
+    color:#686873;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    padding-top:130px;
+}
+
+.hero-content{
+    max-width:1000px;
+    z-index:5;
+}
+
+.availability{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    color:#aaa;
+
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    margin-bottom:30px;
+}
+
+.availability-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+
+    background:#4cff9b;
+
+    box-shadow:
+        0 0 15px #4cff9b;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(55px,9vw,130px);
+
+    line-height:.85;
+
+    letter-spacing:-8px;
+
+    margin-bottom:38px;
+}
+
+.gradient-text{
+    background:
+        linear-gradient(
+            100deg,
+            #fff 0%,
+            #9a76ff 35%,
+            #00d9ff 75%,
+            #fff 100%
+        );
+
+    background-size:200%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradientMove 5s infinite alternate;
+}
+
+@keyframes gradientMove{
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:100%;
+    }
+}
+
+.hero-description{
+    max-width:680px;
+
+    color:#92929e;
+
+    font-size:16px;
+    line-height:1.9;
+
+    margin-bottom:35px;
+}
+
+.hero-description strong{
+    color:#fff;
+}
+
+.typing{
+    color:#fff;
+    font-weight:600;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    padding:
+        16px 26px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:600;
+
+    transition:.35s;
+}
+
+.btn-primary{
+    color:#000;
+    background:#fff;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+    box-shadow:
+        0 20px 60px rgba(255,255,255,.12);
+}
+
+.btn-secondary{
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.03);
+
+    border:
+        1px solid rgba(255,255,255,.13);
+}
+
+.btn-secondary:hover{
+    transform:translateY(-5px);
+    background:
+        rgba(255,255,255,.08);
+}
+
+.hero-meta{
+    margin-top:75px;
+
+    display:flex;
+    gap:45px;
+
+    color:#666;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.hero-meta strong{
+    display:block;
+
+    color:#fff;
+
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.scroll-indicator{
+    position:absolute;
+
+    left:8%;
+    bottom:30px;
+
+    color:#666;
+
+    font-size:9px;
+    letter-spacing:3px;
+
+    writing-mode:vertical-rl;
+}
+
+.scroll-line{
+    width:1px;
+    height:50px;
+
+    margin-top:10px;
+
+    background:
+        linear-gradient(
+            #777,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PERSONAL PROFILE
+========================================================= */
+
+.profile-grid{
+    display:grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    gap:60px;
+
+    align-items:start;
+}
+
+.profile-card{
+    position:relative;
+
+    min-height:480px;
+
+    border-radius:30px;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(124,60,255,.24),
+            transparent 35%
+        ),
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transform-style:preserve-3d;
+}
+
+.profile-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3cff,
+            #00d9ff
+        );
+
+    filter:blur(90px);
+
+    opacity:.22;
+}
+
+.profile-avatar{
+    width:210px;
+    height:210px;
+
+    border-radius:50%;
+
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-family:"Space Grotesk";
+
+    font-size:55px;
+    font-weight:700;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #fff,
+            #9d7cff 18%,
+            #4216a8 50%,
+            #06020d 75%
+        );
+
+    box-shadow:
+        0 0 80px rgba(124,60,255,.35),
+        inset -30px -25px 60px #000;
+
+    animation:
+        avatarFloat 5s ease-in-out infinite;
+}
+
+@keyframes avatarFloat{
+
+    0%,100%{
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50%{
+        transform:
+            translateY(-20px)
+            rotate(7deg);
+    }
+
+}
+
+.profile-info{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+}
+
+.info-row{
+    display:grid;
+
+    grid-template-columns:
+        180px 1fr;
+
+    gap:20px;
+
+    padding:22px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+}
+
+.info-label{
+    color:#666;
+    font-size:12px;
+}
+
+.info-value{
+    color:#eee;
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   EDUCATION
+========================================================= */
+
+.education-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:22px;
+}
+
+.education-card{
+    position:relative;
+
+    padding:38px;
+
+    min-height:300px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+    transition:.45s;
+}
+
+.education-card:hover{
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(141,92,255,.4);
+}
+
+.education-number{
+    font-family:"Space Grotesk";
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-bottom:50px;
+}
+
+.education-card h3{
+    font-family:"Space Grotesk";
+
+    font-size:27px;
+
+    margin-bottom:12px;
+}
+
+.education-card h4{
+    color:#9b75ff;
+
+    font-size:13px;
+
+    margin-bottom:18px;
+}
+
+.education-card p{
+    color:#777;
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+.gpa{
+    position:absolute;
+
+    top:30px;
+    right:30px;
+
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-family:"Space Grotesk";
+
+    font-size:15px;
+    font-weight:700;
+
+    background:
+        rgba(124,60,255,.1);
+
+    border:
+        1px solid rgba(124,60,255,.3);
+
+    box-shadow:
+        0 0 30px rgba(124,60,255,.1);
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.skill-card{
+    min-height:230px;
+
+    padding:34px;
+
+    border-radius:24px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    transition:.4s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.skill-card:hover{
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(141,92,255,.35);
+}
+
+.skill-icon{
+    font-size:30px;
+
+    margin-bottom:28px;
+
+    color:#9a76ff;
+}
+
+.skill-card h3{
+    font-family:"Space Grotesk";
+
+    font-size:21px;
+
+    margin-bottom:12px;
+}
+
+.skill-card p{
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:24px;
+}
+
+.project{
+    min-height:430px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    background:#090910;
+
+    transition:.45s;
+
+    transform-style:preserve-3d;
+}
+
+.project:hover{
+    transform:
+        translateY(-10px);
+}
+
+.project-visual{
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(124,60,255,.32),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #131321,
+            #050509
+        );
+}
+
+.project:nth-child(2)
+.project-visual{
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(0,217,255,.3),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #07151a,
+            #050509
+        );
+}
+
+.project:nth-child(3)
+.project-visual{
+    background:
+        radial-gradient(
+            circle at 50% 70%,
+            rgba(255,70,170,.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #170b17,
+            #050509
+        );
+}
+
+.project:nth-child(4)
+.project-visual{
+    background:
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(0,255,150,.2),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #07140f,
+            #050509
+        );
+}
+
+.project-grid{
+    position:absolute;
+    inset:0;
+
+    opacity:.13;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        );
+
+    background-size:40px 40px;
+
+    transform:
+        perspective(500px)
+        rotateX(60deg)
+        scale(2);
+}
+
+.project-content{
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+
+    padding:35px;
+
+    padding-top:130px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.95)
+        );
+}
+
+.project-number{
+    color:#777;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+}
+
+.project h3{
+    font-family:"Space Grotesk";
+
+    font-size:29px;
+
+    margin-bottom:10px;
+}
+
+.project p{
+    color:#888;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+.project-arrow{
+    position:absolute;
+
+    top:25px;
+    right:25px;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.3s;
+}
+
+.project:hover .project-arrow{
+    background:#fff;
+    color:#000;
+
+    transform:
+        rotate(45deg);
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS / STATS
+========================================================= */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.stat{
+    text-align:center;
+
+    padding:55px 15px;
+
+    border-right:
+        1px solid rgba(255,255,255,.08);
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat-number{
+    font-family:"Space Grotesk";
+
+    font-size:55px;
+    font-weight:700;
+}
+
+.stat-label{
+    margin-top:8px;
+
+    color:#666;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   PERSONAL DETAILS
+========================================================= */
+
+.details-box{
+    padding:50px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+}
+
+.details-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:0 60px;
+}
+
+.detail{
+    padding:22px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+}
+
+.detail-title{
+    color:#666;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:8px;
+}
+
+.detail-value{
+    color:#eee;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+.social-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+}
+
+.social-card{
+    padding:30px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    text-decoration:none;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    transition:.35s;
+}
+
+.social-card:hover{
+    transform:translateY(-7px);
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.social-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.social-icon{
+    width:45px;
+    height:45px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        rgba(124,60,255,.12);
+
+    font-size:20px;
+}
+
+.social-name{
+    font-family:"Space Grotesk";
+
+    font-size:17px;
+}
+
+.social-handle{
+    color:#666;
+
+    font-size:12px;
+
+    margin-top:4px;
+}
+
+
+/* =========================================================
+   EXPERIENCE PLACEHOLDER
+========================================================= */
+
+.timeline{
+    max-width:900px;
+}
+
+.timeline-item{
+    display:grid;
+
+    grid-template-columns:
+        160px 1fr;
+
+    gap:50px;
+
+    padding:35px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+}
+
+.timeline-date{
+    color:#666;
+    font-size:12px;
+}
+
+.timeline-content h3{
+    font-family:"Space Grotesk";
+
+    font-size:23px;
+
+    margin-bottom:8px;
+}
+
+.timeline-content h4{
+    color:#9a76ff;
+
+    font-size:12px;
+
+    margin-bottom:15px;
+}
+
+.timeline-content p{
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    min-height:80vh;
+
+    display:flex;
+    align-items:center;
+}
+
+.contact-box{
+    width:100%;
+
+    padding:80px 50px;
+
+    text-align:center;
+
+    border-radius:35px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(0,217,255,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(124,60,255,.14),
+            transparent 30%
+        ),
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+.contact-box h2{
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(45px,7vw,95px);
+
+    line-height:.9;
+
+    letter-spacing:-5px;
+
+    margin-bottom:25px;
+}
+
+.contact-box p{
+    max-width:550px;
+
+    margin:
+        0 auto 35px;
+
+    color:#777;
+
+    line-height:1.8;
+}
+
+.contact-placeholder{
+    margin-top:25px;
+
+    color:#777;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:
+        35px 8%;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    color:#555;
+
+    font-size:11px;
+}
+
+.footer-socials{
+    display:flex;
+    gap:20px;
+}
+
+.footer-socials a{
+    text-decoration:none;
+    color:#666;
+
+    transition:.3s;
+}
+
+.footer-socials a:hover{
+    color:#fff;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+
+    transform:
+        translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
+
+    .nav-links,
+    .nav-button{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .nav-links.active{
+
+        display:flex;
+
+        position:absolute;
+
+        top:88px;
+        left:0;
+
+        width:100%;
+
+        flex-direction:column;
+
+        padding:30px;
+
+        background:
+            rgba(3,3,8,.97);
+
+        backdrop-filter:blur(20px);
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+    .skills-grid{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .projects-grid{
+        grid-template-columns:1fr;
+    }
+
+    .education-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .stat:nth-child(2){
+        border-right:0;
+    }
+
+    .stat:nth-child(-n+2){
+        border-bottom:
+            1px solid rgba(255,255,255,.08);
+    }
+
+    .details-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:
+            110px 6%;
+    }
+
+    .hero h1{
+        font-size:58px;
+        letter-spacing:-5px;
+    }
+
+    .hero-meta{
+        gap:20px;
+        flex-wrap:wrap;
+    }
+
+    .skills-grid{
+        grid-template-columns:1fr;
+    }
+
+    .social-grid{
+        grid-template-columns:1fr;
+    }
+
+    .details-box{
+        padding:30px 25px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        padding:35px 10px;
+    }
+
+    .stat-number{
+        font-size:38px;
+    }
+
+    .timeline-item{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .contact-box{
+        padding:
+            55px 25px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .cursor,
+    .cursor-ring{
+        display:none;
+    }
+
+}
+
+
+/* =========================================================
+   CINEMATIC 3D PAGE TRANSITION — ADDED WITHOUT CHANGING
+   THE ORIGINAL VISUAL MODEL
+========================================================= */
+#page-transition{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    pointer-events:none;
+    opacity:0;
+    visibility:hidden;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 50%,rgba(124,60,255,.18),transparent 30%),
+      rgba(3,3,8,.86);
+    backdrop-filter:blur(0px);
+    transform:scale(1.06);
+}
+#page-transition.is-active{
+    animation:cinematicTransition 1.05s cubic-bezier(.76,0,.24,1) both;
+}
+#page-transition .transition-grid{
+    position:absolute;
+    inset:-20%;
+    background-image:
+      linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+    background-size:58px 58px;
+    transform:perspective(700px) rotateX(66deg) scale(1.5) translateY(28%);
+    opacity:.22;
+}
+#page-transition .transition-orb{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:190px;
+    height:190px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    border:1px solid rgba(159,120,255,.65);
+    box-shadow:
+      0 0 40px rgba(124,60,255,.25),
+      inset 0 0 50px rgba(0,217,255,.08);
+}
+#page-transition .transition-orb:before,
+#page-transition .transition-orb:after{
+    content:"";
+    position:absolute;
+    inset:-32px;
+    border-radius:50%;
+    border:1px solid rgba(0,217,255,.28);
+}
+#page-transition .transition-orb:after{
+    inset:-72px;
+    border-color:rgba(255,79,200,.16);
+}
+#page-transition .transition-core{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    background:#fff;
+    box-shadow:
+      0 0 20px #fff,
+      0 0 60px rgba(124,60,255,.9),
+      0 0 120px rgba(0,217,255,.45);
+}
+@keyframes cinematicTransition{
+    0%{
+        opacity:0;
+        visibility:visible;
+        transform:scale(1.06);
+        backdrop-filter:blur(0px);
+    }
+    18%{
+        opacity:1;
+        transform:scale(1);
+        backdrop-filter:blur(8px);
+    }
+    46%{
+        opacity:1;
+        transform:scale(1);
+    }
+    72%{
+        opacity:1;
+        transform:scale(.99);
+        backdrop-filter:blur(12px);
+    }
+    100%{
+        opacity:0;
+        visibility:hidden;
+        transform:scale(.94);
+        backdrop-filter:blur(0px);
+    }
+}
+#page-transition.is-active .transition-grid{
+    animation:transitionGrid 1.05s cubic-bezier(.22,1,.36,1);
+}
+#page-transition.is-active .transition-orb{
+    animation:transitionOrb 1.05s cubic-bezier(.22,1,.36,1);
+}
+#page-transition.is-active .transition-core{
+    animation:transitionCore 1.05s cubic-bezier(.22,1,.36,1);
+}
+@keyframes transitionGrid{
+    0%{opacity:0;transform:perspective(700px) rotateX(66deg) scale(1.5) translateY(50%)}
+    25%{opacity:.3}
+    100%{opacity:0;transform:perspective(700px) rotateX(66deg) scale(2.4) translateY(-5%)}
+}
+@keyframes transitionOrb{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.15) rotateX(65deg) rotateZ(0deg)}
+    25%{opacity:1}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(4.8) rotateX(65deg) rotateZ(220deg)}
+}
+@keyframes transitionCore{
+    0%{transform:translate(-50%,-50%) scale(.2);opacity:0}
+    20%{opacity:1}
+    45%{transform:translate(-50%,-50%) scale(1.8)}
+    100%{transform:translate(-50%,-50%) scale(.05);opacity:0}
+}
+
+/* subtle 3D lift while destination section enters */
+.cinematic-enter{
+    animation:cinematicEnter .9s cubic-bezier(.22,1,.36,1);
+}
+@keyframes cinematicEnter{
+    0%{opacity:.55;transform:perspective(900px) translateZ(-90px) rotateX(3deg);filter:blur(5px)}
+    100%{opacity:1;transform:none;filter:none}
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     CINEMATIC TRANSITION LAYER
+========================================================= -->
+<div id="page-transition" aria-hidden="true">
+    <div class="transition-grid"></div>
+    <div class="transition-orb"></div>
+    <div class="transition-core"></div>
+</div>
+
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div id="loader">
+
+    <div class="loader-name">
+        RIYAD<span>.</span>
+    </div>
+
+    <div class="loader-sub">
+        Personal Portfolio
+    </div>
+
+    <div class="loader-line">
+        <span></span>
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PROGRESS
+========================================================= -->
+
+<div class="progress" id="progress"></div>
+
+
+<!-- =========================================================
+     CURSOR
+========================================================= -->
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<canvas id="webgl"></canvas>
+
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
+
+<div class="noise"></div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav>
+
+    <div class="logo">
+        RIYAD<span>.</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#about">About</a>
+        </li>
+
+        <li>
+            <a href="#education">Education</a>
+        </li>
+
+        <li>
+            <a href="#skills">Skills</a>
+        </li>
+
+        <li>
+            <a href="#projects">Projects</a>
+        </li>
+
+        <li>
+            <a href="#contact">Contact</a>
+        </li>
+
+    </ul>
+
+    <a href="#contact" class="nav-button">
+        Let's Connect ↗
+    </a>
+
+    <div class="menu">
+        ☰
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="availability">
+
+                <span class="availability-dot"></span>
+
+                Open to opportunities
+
+            </div>
+
+
+            <h1>
+
+                MD MURSHALEN<br>
+
+                <span class="gradient-text">
+                    HOSSAIN RIYAD
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Welcome to my digital space.
+
+                I'm
+                <strong>
+                    Md Murshalen Hossain Riyad
+                </strong>,
+
+                a student and aspiring professional
+                interested in technology, creativity,
+                learning and building meaningful things.
+
+                <span class="typing"></span>
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#about"
+                    class="btn btn-primary magnetic"
+                >
+                    Explore My Profile →
+                </a>
+
+                <a
+                    href="#contact"
+                    class="btn btn-secondary magnetic"
+                >
+                    Connect With Me
+                </a>
+
+            </div>
+
+
+            <div class="hero-meta">
+
+                <div>
+                    <strong>SSC</strong>
+                    GPA 5.00 · 2023
+                </div>
+
+                <div>
+                    <strong>HSC</strong>
+                    GPA 5.00 · 2025
+                </div>
+
+                <div>
+                    <strong>LOCATION</strong>
+                    Bangladesh
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="scroll-indicator">
+
+        SCROLL
+
+        <div class="scroll-line"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT / PROFILE
+========================================================= -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="tag">
+            Personal Profile
+        </div>
+
+        <div class="section-title">
+
+            GET TO<br>
+
+            <span>KNOW ME.</span>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+
+            <div class="profile-card tilt">
+
+                <div class="profile-avatar">
+                    MR
+                </div>
+
+            </div>
+
+
+            <div class="profile-info">
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Full Name
+                    </div>
+
+                    <div class="info-value">
+                        Md Murshalen Hossain Riyad
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Father's Name
+                    </div>
+
+                    <div class="info-value">
+                        Md Dulal Pk
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Mother's Name
+                    </div>
+
+                    <div class="info-value">
+                        Mst Nasrin Akter
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Nationality
+                    </div>
+
+                    <div class="info-value">
+                        Bangladeshi
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Religion
+                    </div>
+
+                    <div class="info-value">
+                        Muslim
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Permanent Address
+                    </div>
+
+                    <div class="info-value">
+
+                        Gram: Kolchor<br>
+                        Purbo Chartarapur<br>
+                        Dakghor: Chartarapur - 6600<br>
+                        Pabna Sadar, Pabna, Bangladesh
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Date of Birth
+                    </div>
+
+                    <div class="info-value">
+                        [ADD DATE OF BIRTH]
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Current Location
+                    </div>
+
+                    <div class="info-value">
+                        [ADD CURRENT LOCATION]
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EDUCATION
+========================================================= -->
+
+<section id="education">
+
+    <div class="container">
+
+        <div class="tag">
+            Academic Background
+        </div>
+
+
+        <div class="section-title">
+
+            MY<br>
+
+            <span>EDUCATION.</span>
+
+        </div>
+
+
+        <div class="education-grid">
+
+
+            <!-- SSC -->
+
+            <div class="education-card reveal">
+
+                <div class="education-number">
+                    01 — SECONDARY EDUCATION
+                </div>
+
+                <div class="gpa">
+                    5.00
+                </div>
+
+                <h3>
+                    Secondary School Certificate
+                </h3>
+
+                <h4>
+                    Ataikula High School
+                </h4>
+
+                <p>
+
+                    Successfully completed SSC
+                    in 2023 with an outstanding
+                    GPA of 5.00.
+
+                </p>
+
+                <p style="margin-top:15px;color:#555;">
+                    Group: [ADD GROUP]
+                </p>
+
+            </div>
+
+
+            <!-- HSC -->
+
+            <div class="education-card reveal">
+
+                <div class="education-number">
+                    02 — HIGHER SECONDARY EDUCATION
+                </div>
+
+                <div class="gpa">
+                    5.00
+                </div>
+
+                <h3>
+                    Higher Secondary Certificate
+                </h3>
+
+                <h4>
+                    Government Edward College
+                </h4>
+
+                <p>
+
+                    Successfully completed HSC
+                    in 2025 with an outstanding
+                    GPA of 5.00.
+
+                </p>
+
+                <p style="margin-top:15px;color:#555;">
+                    Group: [ADD GROUP]
+                </p>
+
+            </div>
+
+
+            <!-- FUTURE EDUCATION -->
+
+            <div class="education-card reveal">
+
+                <div class="education-number">
+                    03 — HIGHER EDUCATION
+                </div>
+
+                <h3>
+                    [ADD UNIVERSITY / PROGRAM]
+                </h3>
+
+                <h4>
+                    [ADD INSTITUTION]
+                </h4>
+
+                <p>
+                    Add your university, degree,
+                    major, study period and other
+                    academic information here.
+                </p>
+
+            </div>
+
+
+            <!-- CERTIFICATION -->
+
+            <div class="education-card reveal">
+
+                <div class="education-number">
+                    04 — CERTIFICATIONS
+                </div>
+
+                <h3>
+                    [ADD CERTIFICATIONS]
+                </h3>
+
+                <h4>
+                    [ADD CERTIFICATE / ORGANIZATION]
+                </h4>
+
+                <p>
+                    Add IELTS, programming,
+                    professional, academic or
+                    other certifications here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SKILLS
+========================================================= -->
+
+<section id="skills">
+
+    <div class="container">
+
+        <div class="tag">
+            Capabilities
+        </div>
+
+
+        <div class="section-title">
+
+            WHAT I<br>
+
+            <span>CAN DO.</span>
+
+        </div>
+
+
+        <div class="skills-grid">
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Web Development
+                </h3>
+
+                <p>
+                    [ADD YOUR WEB DEVELOPMENT
+                    SKILLS AND TECHNOLOGIES]
+                </p>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    UI / UX Design
+                </h3>
+
+                <p>
+                    [ADD YOUR DESIGN SKILLS,
+                    TOOLS AND EXPERIENCE]
+                </p>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ◇
+                </div>
+
+                <h3>
+                    Programming
+                </h3>
+
+                <p>
+                    [ADD PROGRAMMING LANGUAGES
+                    AND TECHNOLOGIES]
+                </p>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ⌘
+                </div>
+
+                <h3>
+                    Communication
+                </h3>
+
+                <p>
+                    [ADD COMMUNICATION,
+                    PRESENTATION AND TEAMWORK SKILLS]
+                </p>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ∞
+                </div>
+
+                <h3>
+                    Creative Thinking
+                </h3>
+
+                <p>
+                    [ADD YOUR CREATIVE SKILLS,
+                    INTERESTS AND STRENGTHS]
+                </p>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    [ADD SKILL]
+                </h3>
+
+                <p>
+                    [ADD DESCRIPTION]
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section id="projects">
+
+    <div class="container">
+
+        <div class="tag">
+            Selected Work
+        </div>
+
+
+        <div class="section-title">
+
+            THINGS I'VE<br>
+
+            <span>BUILT.</span>
+
+        </div>
+
+
+        <div class="projects-grid">
+
+
+            <article class="project tilt reveal">
+
+                <div class="project-visual"></div>
+
+                <div class="project-grid"></div>
+
+                <div class="project-arrow">
+                    ↗
+                </div>
+
+                <div class="project-content">
+
+                    <div class="project-number">
+                        01 — PROJECT
+                    </div>
+
+                    <h3>
+                        [ADD PROJECT NAME]
+                    </h3>
+
+                    <p>
+                        [ADD PROJECT DESCRIPTION]
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="project tilt reveal">
+
+                <div class="project-visual"></div>
+
+                <div class="project-grid"></div>
+
+                <div class="project-arrow">
+                    ↗
+                </div>
+
+                <div class="project-content">
+
+                    <div class="project-number">
+                        02 — PROJECT
+                    </div>
+
+                    <h3>
+                        [ADD PROJECT NAME]
+                    </h3>
+
+                    <p>
+                        [ADD PROJECT DESCRIPTION]
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="project tilt reveal">
+
+                <div class="project-visual"></div>
+
+                <div class="project-grid"></div>
+
+                <div class="project-arrow">
+                    ↗
+                </div>
+
+                <div class="project-content">
+
+                    <div class="project-number">
+                        03 — PROJECT
+                    </div>
+
+                    <h3>
+                        [ADD PROJECT NAME]
+                    </h3>
+
+                    <p>
+                        [ADD PROJECT DESCRIPTION]
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="project tilt reveal">
+
+                <div class="project-visual"></div>
+
+                <div class="project-grid"></div>
+
+                <div class="project-arrow">
+                    ↗
+                </div>
+
+                <div class="project-content">
+
+                    <div class="project-number">
+                        04 — PROJECT
+                    </div>
+
+                    <h3>
+                        [ADD PROJECT NAME]
+                    </h3>
+
+                    <p>
+                        [ADD PROJECT DESCRIPTION]
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ACHIEVEMENTS
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="tag">
+            Academic Highlights
+        </div>
+
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    data-target="5"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    SSC GPA
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    data-target="5"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    HSC GPA
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    data-target="2023"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    SSC Year
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    data-target="2025"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    HSC Year
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PERSONAL DETAILS
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="tag">
+            Additional Information
+        </div>
+
+
+        <div class="section-title">
+
+            PERSONAL<br>
+
+            <span>DETAILS.</span>
+
+        </div>
+
+
+        <div class="details-box reveal">
+
+            <div class="details-grid">
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Date of Birth
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD DATE OF BIRTH]
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Blood Group
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD BLOOD GROUP]
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Nationality
+                    </div>
+
+                    <div class="detail-value">
+                        Bangladeshi
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Religion
+                    </div>
+
+                    <div class="detail-value">
+                        Muslim
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Languages
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD LANGUAGES]
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Career Goal
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD CAREER GOAL]
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Interests
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD INTERESTS]
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-title">
+                        Hobbies
+                    </div>
+
+                    <div class="detail-value">
+                        [ADD HOBBIES]
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section id="experience">
+
+    <div class="container">
+
+        <div class="tag">
+            Journey
+        </div>
+
+
+        <div class="section-title">
+
+            MY<br>
+
+            <span>JOURNEY.</span>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+                    2025 — PRESENT
+                </div>
+
+                <div class="timeline-content">
+
+                    <h3>
+                        [CURRENT POSITION / STUDY]
+                    </h3>
+
+                    <h4>
+                        [INSTITUTION / ORGANIZATION]
+                    </h4>
+
+                    <p>
+                        [ADD DETAILS ABOUT YOUR
+                        CURRENT STUDY, WORK OR ACTIVITIES]
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+                    2023 — 2025
+                </div>
+
+                <div class="timeline-content">
+
+                    <h3>
+                        Higher Secondary Education
+                    </h3>
+
+                    <h4>
+                        Government Edward College
+                    </h4>
+
+                    <p>
+                        Completed HSC in 2025
+                        with GPA 5.00.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+                    2021 — 2023
+                </div>
+
+                <div class="timeline-content">
+
+                    <h3>
+                        Secondary Education
+                    </h3>
+
+                    <h4>
+                        Ataikula High School
+                    </h4>
+
+                    <p>
+                        Completed SSC in 2023
+                        with GPA 5.00.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SOCIAL
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="tag">
+            Find Me Online
+        </div>
+
+
+        <div class="section-title">
+
+            LET'S<br>
+
+            <span>CONNECT.</span>
+
+        </div>
+
+
+        <div class="social-grid">
+
+
+            <a
+                class="social-card reveal"
+                href="https://www.facebook.com/riyad.hossain.332871"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <div class="social-left">
+
+                    <div class="social-icon">
+                        f
+                    </div>
+
+                    <div>
+
+                        <div class="social-name">
+                            Facebook
+                        </div>
+
+                        <div class="social-handle">
+                            @riyad.hossain.332871
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    ↗
+                </div>
+
+            </a>
+
+
+            <a
+                class="social-card reveal"
+                href="https://www.instagram.com/1937riyad/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <div class="social-left">
+
+                    <div class="social-icon">
+                        ◎
+                    </div>
+
+                    <div>
+
+                        <div class="social-name">
+                            Instagram
+                        </div>
+
+                        <div class="social-handle">
+                            @1937riyad
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    ↗
+                </div>
+
+            </a>
+
+
+            <a
+                class="social-card reveal"
+                href="#"
+            >
+
+                <div class="social-left">
+
+                    <div class="social-icon">
+                        GH
+                    </div>
+
+                    <div>
+
+                        <div class="social-name">
+                            GitHub
+                        </div>
+
+                        <div class="social-handle">
+                            [ADD GITHUB LINK]
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    ↗
+                </div>
+
+            </a>
+
+
+            <a
+                class="social-card reveal"
+                href="#"
+            >
+
+                <div class="social-left">
+
+                    <div class="social-icon">
+                        in
+                    </div>
+
+                    <div>
+
+                        <div class="social-name">
+                            LinkedIn
+                        </div>
+
+                        <div class="social-handle">
+                            [ADD LINKEDIN LINK]
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    ↗
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section
+    id="contact"
+    class="contact"
+>
+
+    <div class="container">
+
+        <div class="contact-box reveal">
+
+            <div class="tag">
+                Get In Touch
+            </div>
+
+
+            <h2>
+
+                LET'S BUILD<br>
+
+                <span class="gradient-text">
+                    THE FUTURE.
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                For academic opportunities,
+                collaborations, projects,
+                professional inquiries or simply
+                to connect, feel free to reach out.
+
+            </p>
+
+
+            <a
+                href="#"
+                class="btn btn-primary magnetic"
+            >
+                [ADD EMAIL] ↗
+            </a>
+
+
+            <div class="contact-placeholder">
+
+                Phone:
+                [ADD PHONE NUMBER]
+
+                <br><br>
+
+                Email:
+                [ADD EMAIL ADDRESS]
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div>
+
+        © 2026
+        Md Murshalen Hossain Riyad.
+
+        All rights reserved.
+
+    </div>
+
+
+    <div class="footer-socials">
+
+        <a
+            href="https://www.facebook.com/riyad.hossain.332871"
+            target="_blank"
+        >
+            Facebook
+        </a>
+
+        <a
+            href="https://www.instagram.com/1937riyad/?hl=en"
+            target="_blank"
+        >
+            Instagram
+        </a>
+
+        <a href="#">
+            GitHub
+        </a>
+
+        <a href="#">
+            LinkedIn
+        </a>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        const loader =
+            document.getElementById("loader");
+
+        loader.style.opacity="0";
+
+        setTimeout(()=>{
+
+            loader.style.display="none";
+
+        },1000);
+
+    },2200);
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menu =
+    document.querySelector(".menu");
+
+const navLinks =
+    document.querySelector(".nav-links");
+
+menu.addEventListener("click",()=>{
+
+    navLinks.classList.toggle("active");
+
+});
+
+
+document.querySelectorAll(".nav-links a")
+.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        navLinks.classList.remove("active");
+
+    });
+
+});
+
+
+/* =========================================================
+   TYPING
+========================================================= */
+
+const typingWords=[
+
+    "Creative Learner.",
+    "Future Developer.",
+    "Technology Enthusiast.",
+    "Problem Solver.",
+    "Digital Creator."
+
+];
+
+let wordIndex=0;
+let characterIndex=0;
+let deleting=false;
+
+const typingElement =
+    document.querySelector(".typing");
+
+function typingAnimation(){
+
+    const currentWord =
+        typingWords[wordIndex];
+
+    if(!deleting){
+
+        typingElement.textContent =
+            currentWord.substring(
+                0,
+                characterIndex++
+            );
+
+        if(
+            characterIndex >
+            currentWord.length
+        ){
+
+            deleting=true;
+
+            setTimeout(
+                typingAnimation,
+                1200
+            );
+
+            return;
+
+        }
+
+    }else{
+
+        typingElement.textContent =
+            currentWord.substring(
+                0,
+                characterIndex--
+            );
+
+        if(characterIndex===0){
+
+            deleting=false;
+
+            wordIndex =
+                (wordIndex+1) %
+                typingWords.length;
+
+        }
+
+    }
+
+    setTimeout(
+        typingAnimation,
+        deleting ? 45 : 85
+    );
+
+}
+
+typingAnimation();
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+const cursor =
+    document.querySelector(".cursor");
+
+const cursorRing =
+    document.querySelector(".cursor-ring");
+
+let mouseX=0;
+let mouseY=0;
+
+let ringX=0;
+let ringY=0;
+
+window.addEventListener("mousemove",(e)=>{
+
+    mouseX=e.clientX;
+    mouseY=e.clientY;
+
+    cursor.style.left=
+        mouseX+"px";
+
+    cursor.style.top=
+        mouseY+"px";
+
+});
+
+
+function cursorLoop(){
+
+    ringX +=
+        (mouseX-ringX)*.12;
+
+    ringY +=
+        (mouseY-ringY)*.12;
+
+    cursorRing.style.left=
+        ringX+"px";
+
+    cursorRing.style.top=
+        ringY+"px";
+
+    requestAnimationFrame(
+        cursorLoop
+    );
+
+}
+
+cursorLoop();
+
+
+document.querySelectorAll(
+    "a,.project,.skill-card,.education-card,.profile-card"
+).forEach(element=>{
+
+    element.addEventListener(
+        "mouseenter",
+        ()=>{
+            cursorRing.style.width="65px";
+            cursorRing.style.height="65px";
+        }
+    );
+
+    element.addEventListener(
+        "mouseleave",
+        ()=>{
+            cursorRing.style.width="38px";
+            cursorRing.style.height="38px";
+        }
+    );
+
+});
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+window.addEventListener("scroll",()=>{
+
+    const scrollTop =
+        window.scrollY;
+
+    const scrollHeight =
+        document.documentElement
+        .scrollHeight -
+        document.documentElement
+        .clientHeight;
+
+    const percentage =
+        (scrollTop/scrollHeight)*100;
+
+    document.getElementById(
+        "progress"
+    ).style.width =
+        percentage+"%";
+
+});
+
+
+/* =========================================================
+   TILT
+========================================================= */
+
+document.querySelectorAll(
+    ".tilt"
+).forEach(card=>{
+
+    card.addEventListener(
+        "mousemove",
+        (event)=>{
+
+            const rect =
+                card.getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left;
+
+            const y =
+                event.clientY -
+                rect.top;
+
+            const centerX =
+                rect.width/2;
+
+            const centerY =
+                rect.height/2;
+
+            const rotateX =
+                ((y-centerY)/
+                centerY)*-5;
+
+            const rotateY =
+                ((x-centerX)/
+                centerX)*5;
+
+            card.style.transform =
+                `
+                perspective(1000px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                translateY(-8px)
+                `;
+
+        }
+    );
+
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
+            card.style.transform="";
+        }
+    );
+
+});
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const observer =
+    new IntersectionObserver(
+        entries=>{
+
+            entries.forEach(entry=>{
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+revealElements.forEach(element=>{
+
+    observer.observe(element);
+
+});
+
+
+/* =========================================================
+   MAGNETIC BUTTONS
+========================================================= */
+
+document.querySelectorAll(
+    ".magnetic"
+).forEach(button=>{
+
+    button.addEventListener(
+        "mousemove",
+        (event)=>{
+
+            const rect =
+                button.getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left -
+                rect.width/2;
+
+            const y =
+                event.clientY -
+                rect.top -
+                rect.height/2;
+
+            button.style.transform =
+                `translate(
+                    ${x*.13}px,
+                    ${y*.13}px
+                )`;
+
+        }
+    );
+
+    button.addEventListener(
+        "mouseleave",
+        ()=>{
+            button.style.transform="";
+        }
+    );
+
+});
+
+
+/* =========================================================
+   THREE.JS
+========================================================= */
+
+const canvas =
+    document.getElementById("webgl");
+
+const scene =
+    new THREE.Scene();
+
+const camera =
+    new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth/
+        window.innerHeight,
+        .1,
+        100
+    );
+
+camera.position.z=8;
+
+
+const renderer =
+    new THREE.WebGLRenderer({
+
+        canvas:canvas,
+
+        alpha:true,
+
+        antialias:true
+
+    });
+
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+const particleCount=1800;
+
+const particlePositions =
+    new Float32Array(
+        particleCount*3
+    );
+
+for(
+    let i=0;
+    i<particleCount*3;
+    i++
+){
+
+    particlePositions[i] =
+        (Math.random()-.5)*28;
+
+}
+
+
+const particleGeometry =
+    new THREE.BufferGeometry();
+
+particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+        particlePositions,
+        3
+    )
+);
+
+
+const particleMaterial =
+    new THREE.PointsMaterial({
+
+        color:0x9270ff,
+
+        size:.025,
+
+        transparent:true,
+
+        opacity:.55
+
+    });
+
+
+const particles =
+    new THREE.Points(
+        particleGeometry,
+        particleMaterial
+    );
+
+scene.add(particles);
+
+
+/* =========================================================
+   3D OBJECTS
+========================================================= */
+
+const objects=[];
+
+
+/* Icosahedron */
+
+const icoGeometry =
+    new THREE.IcosahedronGeometry(
+        1.5,
+        1
+    );
+
+const icoMaterial =
+    new THREE.MeshBasicMaterial({
+
+        color:0x7140ff,
+
+        wireframe:true,
+
+        transparent:true,
+
+        opacity:.22
+
+    });
+
+
+const ico =
+    new THREE.Mesh(
+        icoGeometry,
+        icoMaterial
+    );
+
+ico.position.set(
+    4,
+    .5,
+    -2
+);
+
+scene.add(ico);
+
+objects.push(ico);
+
+
+/* Torus */
+
+const torusGeometry =
+    new THREE.TorusGeometry(
+        1.7,
+        .025,
+        16,
+        120
+    );
+
+const torusMaterial =
+    new THREE.MeshBasicMaterial({
+
+        color:0x00d9ff,
+
+        transparent:true,
+
+        opacity:.45
+
+    });
+
+
+const torus =
+    new THREE.Mesh(
+        torusGeometry,
+        torusMaterial
+    );
+
+torus.position.set(
+    -4,
+    -1,
+    -2
+);
+
+torus.rotation.x=1;
+
+scene.add(torus);
+
+objects.push(torus);
+
+
+/* Octahedron */
+
+const octaGeometry =
+    new THREE.OctahedronGeometry(
+        .9,
+        1
+    );
+
+const octaMaterial =
+    new THREE.MeshBasicMaterial({
+
+        color:0xff4fc8,
+
+        wireframe:true,
+
+        transparent:true,
+
+        opacity:.22
+
+    });
+
+
+const octa =
+    new THREE.Mesh(
+        octaGeometry,
+        octaMaterial
+    );
+
+octa.position.set(
+    2,
+    -3,
+    -3
+);
+
+scene.add(octa);
+
+objects.push(octa);
+
+
+/* =========================================================
+   MOUSE CAMERA
+========================================================= */
+
+let targetX=0;
+let targetY=0;
+
+window.addEventListener(
+    "mousemove",
+    event=>{
+
+        targetX =
+            event.clientX/
+            window.innerWidth -
+            .5;
+
+        targetY =
+            event.clientY/
+            window.innerHeight -
+            .5;
+
+    }
+);
+
+
+/* =========================================================
+   THREE ANIMATION
+========================================================= */
+
+const clock =
+    new THREE.Clock();
+
+
+function animate(){
+
+    requestAnimationFrame(
+        animate
+    );
+
+    const time =
+        clock.getElapsedTime();
+
+
+    particles.rotation.y =
+        time*.015;
+
+    particles.rotation.x =
+        time*.005;
+
+
+    ico.rotation.x =
+        time*.22;
+
+    ico.rotation.y =
+        time*.32;
+
+
+    torus.rotation.z =
+        time*.18;
+
+    torus.rotation.y =
+        time*.12;
+
+
+    octa.rotation.x =
+        time*.35;
+
+    octa.rotation.z =
+        time*.25;
+
+
+    camera.position.x +=
+        (
+            targetX*.5 -
+            camera.position.x
+        )*.025;
+
+
+    camera.position.y +=
+        (
+            -targetY*.5 -
+            camera.position.y
+        )*.025;
+
+
+    camera.lookAt(
+        scene.position
+    );
+
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+animate();
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        camera.aspect =
+            window.innerWidth/
+            window.innerHeight;
+
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PROFESSIONAL UI CLICK SOUND + 3D NAVIGATION TRANSITION
+   Keeps the original single-page structure:
+   Home → About → Education → Skills → Projects → Contact
+========================================================= */
+
+let uiAudioContext = null;
+let uiSoundEnabled = true;
+let transitionBusy = false;
+
+function getAudioContext(){
+    if(!uiAudioContext){
+        uiAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if(uiAudioContext.state === "suspended"){
+        uiAudioContext.resume();
+    }
+    return uiAudioContext;
+}
+
+/* A short layered UI "tick" — subtle, clean and professional. */
+function playProfessionalClick(){
+    if(!uiSoundEnabled) return;
+
+    try{
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        /* bright transient */
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(980, now);
+        osc1.frequency.exponentialRampToValueAtTime(620, now + .075);
+        gain1.gain.setValueAtTime(.0001, now);
+        gain1.gain.exponentialRampToValueAtTime(.075, now + .008);
+        gain1.gain.exponentialRampToValueAtTime(.0001, now + .095);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + .1);
+
+        /* soft lower body */
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = "triangle";
+        osc2.frequency.setValueAtTime(360, now);
+        osc2.frequency.exponentialRampToValueAtTime(210, now + .11);
+        gain2.gain.setValueAtTime(.0001, now);
+        gain2.gain.exponentialRampToValueAtTime(.035, now + .012);
+        gain2.gain.exponentialRampToValueAtTime(.0001, now + .14);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(now);
+        osc2.stop(now + .145);
+    }catch(error){}
+}
+
+function runCinematicNavigation(targetId, originalEvent){
+    if(originalEvent) originalEvent.preventDefault();
+
+    const target = document.getElementById(targetId);
+    if(!target) return;
+
+    playProfessionalClick();
+
+    if(transitionBusy) return;
+    transitionBusy = true;
+
+    const layer = document.getElementById("page-transition");
+    layer.classList.remove("is-active");
+    void layer.offsetWidth;
+    layer.classList.add("is-active");
+
+    /* Start the destination movement while the transition is covering it. */
+    setTimeout(()=>{
+        target.classList.add("cinematic-enter");
+
+        target.scrollIntoView({
+            behavior:"instant",
+            block:"start"
+        });
+
+        history.replaceState(null,"","#"+targetId);
+
+        setTimeout(()=>{
+            target.classList.remove("cinematic-enter");
+        },950);
+    },390);
+
+    setTimeout(()=>{
+        layer.classList.remove("is-active");
+        transitionBusy = false;
+    },1080);
+}
+
+/* Intercept every internal navigation link. */
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener("click",event=>{
+        const id = link.getAttribute("href").replace("#","");
+        if(document.getElementById(id)){
+            runCinematicNavigation(id,event);
+        }
+    });
+});
+
+/* The hamburger/menu links also receive the exact same sound. */
+document.querySelectorAll(".menu, .nav-button, .nav-links a, .hero-buttons a").forEach(el=>{
+    el.addEventListener("pointerdown",()=>{
+        /* Audio is intentionally triggered from the real user gesture. */
+        playProfessionalClick();
+    },{passive:true});
+});
+
+/* Optional keyboard navigation: Up/Down changes sections with the same effect. */
+const cinematicSections = ["home","about","education","skills","projects","contact"];
+
+window.addEventListener("keydown",event=>{
+    if(!["ArrowDown","ArrowUp","PageDown","PageUp"].includes(event.key)) return;
+
+    const activeSection = cinematicSections.find(id=>{
+        const el=document.getElementById(id);
+        if(!el) return false;
+        const rect=el.getBoundingClientRect();
+        return Math.abs(rect.top) < Math.max(100,window.innerHeight*.35);
+    });
+
+    let index=cinematicSections.indexOf(activeSection || "home");
+
+    if(event.key==="ArrowDown" || event.key==="PageDown"){
+        index=Math.min(index+1,cinematicSections.length-1);
+    }else{
+        index=Math.max(index-1,0);
+    }
+
+    if(cinematicSections[index] !== activeSection){
+        event.preventDefault();
+        runCinematicNavigation(cinematicSections[index]);
+    }
+});
+
+/* Keep the 3D background reacting slightly stronger during movement. */
+let transitionMouseX=0;
+let transitionMouseY=0;
+
+window.addEventListener("mousemove",event=>{
+    transitionMouseX=(event.clientX/window.innerWidth-.5);
+    transitionMouseY=(event.clientY/window.innerHeight-.5);
+
+    const orb=document.querySelector("#page-transition .transition-orb");
+    if(orb && !transitionBusy){
+        orb.style.marginLeft=(transitionMouseX*12)+"px";
+        orb.style.marginTop=(transitionMouseY*12)+"px";
+    }
+});
+
+/* Sound can be muted with M. */
+window.addEventListener("keydown",event=>{
+    if(event.key.toLowerCase()==="m"){
+        uiSoundEnabled=!uiSoundEnabled;
+    }
+});
+
+</script>
+
+</body>
+</html>
